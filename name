@@ -1,0 +1,30 @@
+@author: maideyilmaz
+"""
+
+import pandas as pd
+from openpyxl import load_workbook
+import numpy as np
+
+kullanici_adi = "maideyilmaz"
+file_path = r"C:\Users\{kullanici_adi}\Desktop\aylik.xlsx".format(kullanici_adi = kullanici_adi)
+
+df = pd.read_excel(file_path)
+
+wb = load_workbook(file_path)
+wb.create_sheet('hm3')
+wb.save(file_path)
+
+df2 = pd.DataFrame(columns=df.columns)
+df2.iloc[:,0] = df.iloc[:,0]
+
+for i in range(len(df)):
+    for n in range(1,len(df.columns)):
+        if type(df.iloc[i,n]) == float:
+            pass
+        else:
+            df.iloc[i,n] = df.iloc[i,n] = np.nan
+
+if df.iloc[i][0] % 4 != 0:
+    df2.iloc[:,1] = df.iloc[:,1].apply(lambda x: x*86400*31/1000000)
+else:
+    df2.iloc[:,1] = df.iloc[:,1].apply(lambda x: x*86400*31/1000000)
